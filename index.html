@@ -2,33 +2,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    // Basic page settings 
+    <!-- Basic page settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Explore how business size, business counts and employment change in South Africa.">
 
-    // Page title and linked files 
+    <!-- Page title and linked files -->
     <title>South African Businesses | SEAD-SA</title>
     <link rel="stylesheet" href="style.css">
 
-    // Load Chart.js and the JavaScript file 
+    <!-- Load Chart.js and the JavaScript file -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 
 <body>
 
-    // Top banner and navigation
+    <!-- Top banner and navigation -->
     <header class="top-banner">
         <div class="top-banner-inner">
 
-            // Website title and logo                   
+            <!-- Website title and logo -->
             <a class="site-title" href="#">
                 <span class="site-symbol">C</span>
                 <span>SA BUSINESS REPORT</span>
             </a>
 
-            // Navigation links
+            <!-- Navigation links -->
             <nav class="page-links">
                 <a href="#dashboard">Dashboard</a>
                 <a href="#about-data">About the data</a>
@@ -38,7 +38,7 @@
 
     <main>
 
-        // Welcome heading and dashboard introduction
+        <!-- Welcome heading and dashboard introduction -->
         <section class="welcome" id="dashboard">
             <div>
                 <p class="small-heading">SOUTH AFRICA · 2018–2025</p>
@@ -46,20 +46,20 @@
                 <p class="welcome-text">Compare business sizes, follow changes over time and see how jobs are shared across South Africa.</p>
             </div>
 
-            // Dataset source label
+            <!-- Dataset source label -->
             <p class="source-label">● &nbsp; SEAD-SA data</p>
         </section>
 
-        // Dashboard filters
+        <!-- Dashboard filters -->
         <section class="filter-row" aria-label="Dashboard filters">
 
-            // Filter heading
+            <!-- Filter heading -->
             <div class="filter-title">
                 <p class="small-heading">CHOOSE A GROUP</p>
                 <h2>Business size</h2>
             </div>
 
-            // Business size dropdown
+            <!-- Business size dropdown -->
             <div class="filter-control">
                 <label for="business-size-filter">Number of employees</label>
                 <select id="business-size-filter">
@@ -67,20 +67,20 @@
                 </select>
             </div>
 
-            // Year dropdown
+            <!-- Year dropdown -->
             <div class="filter-control">
                 <label for="year-filter">Year for summary and bars</label>
                 <select id="year-filter"></select>
             </div>
 
-            // Shows the dataset loading status
+            <!-- Shows the dataset loading status -->
             <p class="data-status" id="data-status" role="status">Loading dataset…</p>
         </section>
 
-        // Summary statistics
+        <!-- Summary statistics -->
         <section class="numbers-section" aria-label="Summary figures">
 
-            // Summary heading and selected filters
+            <!-- Summary heading and selected filters -->
             <div class="section-title">
                 <div>
                     <p class="small-heading">THE BIG PICTURE</p>
@@ -90,17 +90,17 @@
                 <p id="selection-label">All business sizes</p>
             </div>
 
-            // Cards displaying calculated statistics
+            <!-- Cards displaying calculated statistics -->
             <div class="number-row">
 
-                // Total estimated businesses
+                <!-- Total estimated businesses -->
                 <article class="number-card income-number">
                     <p>Estimated businesses</p>
                     <h3 id="business-total">—</h3>
                     <span>Number of businesses</span>
                 </article>
 
-                // Total estimated employment 
+                <!-- Total estimated employment -->
                 <article class="number-card employment-number">
                     <p>Estimated jobs</p>
                     <h3 id="employment-total">—</h3>
@@ -109,10 +109,10 @@
             </div>
         </section>
 
-        // Charts and data visualisations
+        <!-- Charts and data visualisations -->
         <section class="chart-layout" aria-label="Dashboard charts">
 
-            // Line chart showing business trends over time 
+            <!-- Line chart showing business trends over time -->
             <article class="chart-panel income-panel">
                 <div class="chart-title">
                     <div>
@@ -122,13 +122,13 @@
                     <span>2018–2025 · estimated businesses</span>
                 </div>
 
-                // Line chart display area 
+                <!-- Line chart display area -->
                 <div class="chart-space income-space">
                     <canvas id="trend-chart" role="img" aria-label="Line chart showing estimated business counts by size from 2018 to 2025"></canvas>
                 </div>
             </article>
 
-            // Bar chart comparing business counts 
+            <!-- Bar chart comparing business counts -->
             <article class="chart-panel business-panel">
                 <div class="chart-title">
                     <div>
@@ -138,13 +138,13 @@
                     <span>Estimated count</span>
                 </div>
 
-                // Business comparison chart area
+                <!-- Business comparison chart area -->
                 <div class="chart-space">
                     <canvas id="business-chart" role="img" aria-label="Bar chart comparing estimated businesses by size"></canvas>
                 </div>
             </article>
 
-            // Bar chart comparing employment
+            <!-- Bar chart comparing employment -->
             <article class="chart-panel life-panel">
                 <div class="chart-title">
                     <div>
@@ -154,29 +154,29 @@
                     <span>Estimated count</span>
                 </div>
 
-                // Employment comparison chart area
+                <!-- Employment comparison chart area -->
                 <div class="chart-space">
                     <canvas id="employment-chart" role="img" aria-label="Bar chart comparing estimated employment by business size"></canvas>
                 </div>
             </article>
         </section>
 
-        // Short message highlighting the selected data
+        <!-- Short message highlighting the selected data -->
         <p class="quick-note" id="insight-note">Choose a business size to explore the data.</p>
 
-        // Dataset source and description
+        <!-- Dataset source and description -->
         <section class="data-notes" id="about-data">
             <p class="small-heading">ABOUT THIS DATA</p>
             <h2>Where the numbers come from</h2>
 
             <p>This dataset compares estimated businesses and people employed in South Africa from 2018 to 2025. It groups businesses by employee size: Micro (0–9), Small (10–49), Medium (50–249), Large (250–999) and Very Large (1,000+). The line chart follows business counts over time. The bar charts compare estimated businesses and jobs across the size groups for the selected year.</p>
 
-            // Links to the original dataset and data source
+            <!-- Links to the original dataset and data source -->
             <p>Source: <a href="https://spatialtaxdata.org.za/download-data-landing" target="_blank" rel="noopener noreferrer">Spatial Economic Activity Data, South Africa (SEAD-SA)</a>, <a href="https://api.spatialtaxdata.org.za/api/dashboard-establishments-vs-employment/?national=1&amp;year=2025" target="_blank" rel="noopener noreferrer">national business-size data</a>. Counts are estimates and may include fractional values in the source; the dashboard rounds them for display.</p>
         </section>
     </main>
 
-    // Footer
+    <!-- Footer -->
     <footer>
         <p>SA Business Report · A data visualisation project</p>
     </footer>
