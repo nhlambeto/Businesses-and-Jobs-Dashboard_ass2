@@ -74,3 +74,54 @@ function updateNumbers(yearData, selectedData) {
     document.getElementById("year-heading").textContent = "South Africa · " + yearFilter.value;
 }
 
+
+// Set the appearance and options for the charts
+function chartOptions(valueFormat) {
+    return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: "bottom",
+                labels: {
+                    usePointStyle: true,
+                    color: "#655e62"
+                }
+            },
+            // Format the information shown when hovering over a chart
+            tooltip: {
+                callbacks: {
+                    label: function (item) {
+                        return item.dataset.label + ": " + valueFormat(item.parsed.y);
+                    }
+                }
+            }
+        },
+        // Set the appearance of the chart axes
+        scales: {
+            x: {
+                grid: { display: false },
+                ticks: { color: "#777174" }
+            },
+            y: {
+                beginAtZero: true,
+                grid: { color: "#ece4da" },
+                ticks: {
+                    color: "#777174",
+                    callback: valueFormat
+                }
+            }
+        }
+    };
+}
+
+// Set chart colours based on the selected business size
+function barColors(rows, selectedSize, baseColor) {
+    return rows.map(function (row, index) {
+        if (selectedSize === "all" || row.businessSize === selectedSize) {
+            return chartColors[index % chartColors.length];
+        }
+
+        return baseColor;
+    });
+}
