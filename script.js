@@ -228,3 +228,98 @@ function drawCharts(yearData) {
         })
     });
 }
+
+
+// Update the dashboard when a filter changes
+function updateDashboard() {
+
+    // Get data for the selected year and business size
+    const yearData = getYearData(Number(yearFilter.value));
+    const selectedData = getSelectedData(yearData);
+
+    // Get the name of the selected business size
+    const selection = sizeFilter.value === "all"
+        ? "All business sizes"
+        : sizeFilter.options[sizeFilter.selectedIndex].text;
+
+    // Update the summary, charts and selected group
+    document.getElementById("selection-label").textContent = selection;
+    updateNumbers(yearData, selectedData);
+    drawCharts(yearData);
+
+    // Calculate and display the percentage of jobs
+    if (selectedData.length) {
+        const jobsShare = selectedData.reduce(function (total, row) {
+            return total + row.employmentShare;
+        }, 0);
+
+        document.getElementById("insight-note").textContent = selection + " in " + yearFilter.value
+            + ": " + document.getElementById("business-total").textContent + " businesses and "
+            + document.getElementById("employment-total").textContent + " jobs. "
+            + "This group accounts for " + jobsShare.toFixed(1) + "% of estimated jobs.";
+    }
+}
+
+// Load the CSV dataset into the dashboard
+async function loadData() {
+    try {
+        const response = await fetch("data/sead_sa_business_size_2018_2025.csv");
+
+        // Check whether the data file loaded successfully
+        if (!response.ok) {
+            throw new Error("The data file could not be loaded.");
+        }
+
+        businessData = readCsv(await response.text());
+
+        // Create dropdown options for each business size
+        const sizes = Array.from(new Map(businessData.map(function (row) {
+            return [row.businessSize, row.employeeRange];
+        })).entries());
+
+        sizes.forEach(function (size) {
+            const option = document.createElement("option");
+            option.value = size[0];
+            option.textContent = size[0] + " (" + size[1] + " employees)";
+            sizeFilter.appendChild(option);
+        });
+
+        // Create dropdown options for each available year
+        const years = Array.from(new Set(businessData.map(function (row) {
+            return row.year;
+        }))).sort(function (first, second) {
+            return second - first;
+        });
+
+        years.forEach(function (year) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.textContent = year;
+            yearFilter.appendChild(option);
+        });
+
+        // Select the latest year by default
+        yearFilter.value = years[0];
+
+        // Display the number of records and the available years
+        dataStatus.textContent = businessData.length + " records loaded for " + years[years.length - 1]
+            + "–" + years[0] + ".";
+
+        // Display the dashboard using the loaded data
+        updateDashboard();
+
+        // Update the dashboard when either filter changes
+        sizeFilter.addEventListener("change", updateDashboard);
+        yearFilter.addEventListener("change", updateDashboard);
+
+    } catch (error) {
+
+        // Display an error message if the dataset cannot load
+        dataStatus.textContent = "Could not load the data. Use VS Code Live Server and check the data folder.";
+        dataStatus.classList.add("error-message");
+        console.error(error);
+    }
+}
+
+// Start loading the dataset
+loadData();
